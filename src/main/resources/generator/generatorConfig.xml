@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <properties resource="generator/generator.properties"/>
+
+    <context id="demo" defaultModelType="flat"
+             targetRuntime="tk.mybatis.mapper.generator.TkMyBatis3SimpleImpl">
+
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+       
+        <plugin type="com.github.trang.mybatis.generator.plugins.SerializablePlugin">
+            <property name="suppressJavaInterface" value="false"/>
+        </plugin>
+     
+        <plugin type="com.github.trang.mybatis.generator.plugins.MapperPlugin">
+            <property name="mappers" value="${base.mapper}"/>
+            <property name="lombok" value="${lombok.type}"/>
+            <property name="forceAnnotation" value="${force.annotation}"/>
+        </plugin>
+   
+        <plugin type="com.github.trang.mybatis.generator.plugins.GuavaToStringPlugin"/>
+       
+        <plugin type="com.github.trang.mybatis.generator.plugins.MapperSqlMapConfigPlugin"/>
+    
+        <plugin type="com.github.trang.mybatis.generator.plugins.ServicePlugin">
+            <property name="baseService" value="${base.service}"/>
+            <property name="baseServiceImpl" value="${base.service.impl}"/>
+            <property name="targetProject" value="${target.project.service}"/>
+            <property name="targetPackage" value="${target.package.service}"/>
+        </plugin>
+
+        <commentGenerator type="com.github.trang.mybatis.generator.plugins.CommentGenerator"/>
+
+        <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.url}"
+                        userId="${jdbc.user}" password="${jdbc.password}"/>
+
+     
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+         
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${target.package.model}" targetProject="${target.project.model}">
+          
+            <property name="constructorBased" value="false"/>
+         
+            <property name="enableSubPackages" value="false"/>
+       
+            <property name="immutable" value="false"/>
+
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${target.package.xml}" targetProject="${target.project.xml}"/>
+
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${target.package.mapper}"
+                             targetProject="${target.project.mapper}"/>
+
+  
+        <table tableName="city" domainObjectName="City">
+          
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>
